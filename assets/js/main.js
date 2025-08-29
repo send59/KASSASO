@@ -208,3 +208,353 @@ END:VCALENDAR
     });
   });
 });
+
+/**
+ * Scroll-triggered animations with improved reverse effect
+ */
+function initScrollAnimations() {
+  const animatedElements = document.querySelectorAll('.slide-up, .slide-left, .slide-right, .fade-in, .scale-in');
+  let lastScrollY = window.scrollY;
+  
+  // Check if Intersection Observer is supported
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -10% 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const currentScrollY = window.scrollY;
+        const isScrollingDown = currentScrollY > lastScrollY;
+        lastScrollY = currentScrollY;
+        
+        if (entry.isIntersecting) {
+          // Add animated class when element enters viewport
+          entry.target.classList.add('animated');
+          entry.target.classList.remove('reverse');
+        } else {
+          // Check if we should reverse the animation
+          const elementTop = entry.target.getBoundingClientRect().top;
+          const viewportHeight = window.innerHeight;
+          
+          // Only reverse if element is well above viewport (not just slightly)
+          if (elementTop < -viewportHeight * 0.4 && !isScrollingDown) {
+            entry.target.classList.remove('animated');
+            entry.target.classList.add('reverse');
+          }
+        }
+      });
+    }, observerOptions);
+    
+    animatedElements.forEach(element => {
+      observer.observe(element);
+    });
+    
+    // Additional scroll listener for better reverse detection
+    window.addEventListener('scroll', function() {
+      const currentScrollY = window.scrollY;
+      const isScrollingDown = currentScrollY > lastScrollY;
+      const viewportHeight = window.innerHeight;
+      
+      // Check elements that are partially in view
+      animatedElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const isInViewport = rect.top < viewportHeight && rect.bottom > 0;
+        
+        if (isInViewport) {
+          if (isScrollingDown) {
+            element.classList.add('animated');
+            element.classList.remove('reverse');
+          } else if (rect.top > viewportHeight * 0.6) {
+            // Only reverse if scrolling up and element is in top 60% of viewport
+            element.classList.remove('animated');
+            element.classList.add('reverse');
+          }
+        } else if (rect.top > viewportHeight) {
+          // If element is below viewport and we're scrolling up, keep it reversed
+          if (!isScrollingDown) {
+            element.classList.remove('animated');
+            element.classList.add('reverse');
+          }
+        } else if (rect.bottom < -viewportHeight * 0.3) {
+          // If element is well above viewport, reverse it
+          element.classList.remove('animated');
+          element.classList.add('reverse');
+        }
+      });
+      
+      lastScrollY = currentScrollY;
+    });
+    
+  } else {
+    // Fallback for browsers that don't support Intersection Observer
+    function checkScroll() {
+      const currentScrollY = window.scrollY;
+      const isScrollingDown = currentScrollY > lastScrollY;
+      const viewportHeight = window.innerHeight;
+      
+      animatedElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const isInViewport = rect.top < viewportHeight && rect.bottom > 0;
+        
+        if (isInViewport) {
+          if (isScrollingDown || currentScrollY < 100) {
+            element.classList.add('animated');
+            element.classList.remove('reverse');
+          } else if (rect.top > viewportHeight * 0.6) {
+            // Only reverse if scrolling up and element is in top 60% of viewport
+            element.classList.remove('animated');
+            element.classList.add('reverse');
+          }
+        } else if (rect.top > viewportHeight) {
+          // If element is below viewport and we're scrolling up, keep it reversed
+          if (!isScrollingDown) {
+            element.classList.remove('animated');
+            element.classList.add('reverse');
+          }
+        } else if (rect.bottom < -viewportHeight * 0.3) {
+          // If element is well above viewport, reverse it
+          element.classList.remove('animated');
+          element.classList.add('reverse');
+        }
+      });
+      
+      lastScrollY = currentScrollY;
+    }
+    
+    checkScroll();
+    
+    // Throttle scroll events for performance
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          checkScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+}
+
+// Initialize when DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initScrollAnimations);
+} else {
+  initScrollAnimations();
+}
+
+// Re-initialize animations on window resize
+window.addEventListener('resize', initScrollAnimations);
+
+/**
+ * Scroll top button - Smooth scroll intact
+ */
+let scrollTop = document.querySelector('.scroll-top');
+
+function toggleScrollTop() {
+  if (scrollTop) {
+    window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+  }
+}
+
+scrollTop.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+window.addEventListener('load', toggleScrollTop);
+document.addEventListener('scroll', toggleScrollTop);
+
+/**
+ * Number counting animation with symbol preservation
+ */
+function initNumberCounters() {
+  const counterElements = document.querySelectorAll('.counter-number');
+  
+  // Check if Intersection Observer is supported
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: '0px 0px -10% 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.hasAttribute('data-counted')) {
+          animateNumber(entry.target);
+          entry.target.setAttribute('data-counted', 'true');
+          // Stop observing after animation is triggered
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    counterElements.forEach(element => {
+      // Extract number and symbol from the original text
+      const originalText = element.textContent;
+      const numberMatch = originalText.match(/([0-9,.]+)/);
+      
+      if (numberMatch) {
+        const numberValue = numberMatch[1];
+        const symbol = originalText.replace(numberValue, '').trim();
+        
+        // Store the target value and symbol
+        const targetValue = parseFloat(numberValue.replace(/,/g, ''));
+        element.setAttribute('data-target', targetValue);
+        element.setAttribute('data-symbol', symbol);
+        
+        // Set initial value to 0 with symbol
+        element.textContent = '0' + (symbol ? ' ' + symbol : '');
+      }
+      
+      observer.observe(element);
+    });
+  } else {
+    // Fallback for browsers that don't support Intersection Observer
+    function checkCounters() {
+      counterElements.forEach(element => {
+        if (isInViewport(element) && !element.hasAttribute('data-counted')) {
+          animateNumber(element);
+          element.setAttribute('data-counted', 'true');
+        }
+      });
+    }
+    
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+        rect.bottom >= 0
+      );
+    }
+    
+    // Initialize counters
+    counterElements.forEach(element => {
+      const originalText = element.textContent;
+      const numberMatch = originalText.match(/([0-9,.]+)/);
+      
+      if (numberMatch) {
+        const numberValue = numberMatch[1];
+        const symbol = originalText.replace(numberValue, '').trim();
+        
+        const targetValue = parseFloat(numberValue.replace(/,/g, ''));
+        element.setAttribute('data-target', targetValue);
+        element.setAttribute('data-symbol', symbol);
+        element.textContent = '0' + (symbol ? ' ' + symbol : '');
+      }
+    });
+    
+    checkCounters();
+    window.addEventListener('scroll', checkCounters);
+  }
+}
+
+/**
+ * Animate number from 0 to target value with symbol preservation
+ */
+function animateNumber(element) {
+  const target = parseFloat(element.getAttribute('data-target'));
+  const symbol = element.getAttribute('data-symbol') || '';
+  const duration = 2000; // Animation duration in ms
+  const steps = 60; // Number of steps
+  const stepDuration = duration / steps;
+  const increment = target / steps;
+  
+  let current = 0;
+  let step = 0;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    step++;
+    
+    if (step >= steps) {
+      current = target;
+      clearInterval(timer);
+      element.classList.add('animated'); // Add pulse animation
+      
+      // Remove animation class after animation completes
+      setTimeout(() => {
+        element.classList.remove('animated');
+      }, 600);
+    }
+    
+    // Format number with symbol
+    let displayValue;
+    if (target % 1 === 0) {
+      // Integer values
+      displayValue = Math.floor(current).toLocaleString();
+    } else {
+      // Decimal values (show one decimal place)
+      displayValue = current.toFixed(1);
+    }
+    
+    // Add symbol with appropriate spacing
+    element.textContent = displayValue + (symbol ? ' ' + symbol : '');
+  }, stepDuration);
+}
+
+// Initialize number counters when DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    initScrollAnimations();
+    initNumberCounters();
+  });
+} else {
+  initScrollAnimations();
+  initNumberCounters();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contact-form');
+    const loadingMessage = document.getElementById('loading-message');
+    const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hide any previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            loadingMessage.style.display = 'block';
+            
+            // Collect form data
+            const formData = new FormData(contactForm);
+            
+            // Send form data using Fetch API
+            fetch('../forms/contact.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                loadingMessage.style.display = 'none';
+                
+                if (data.status === 'success') {
+                    successMessage.textContent = data.message;
+                    successMessage.style.display = 'block';
+                    contactForm.reset();
+                } else {
+                    throw new Error(data.message || 'Unknown error occurred');
+                }
+            })
+            .catch(error => {
+                loadingMessage.style.display = 'none';
+                errorMessage.textContent = error.message || 'Form submission failed. Please try again.';
+                errorMessage.style.display = 'block';
+            });
+        });
+    }
+});
