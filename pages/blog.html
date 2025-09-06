@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>KASSASO - Blog Post</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/KASSOSA-emblem.png" rel="icon">
+  <!-- <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+
+  <style>
+    /* Blog Post Specific Styles */
+    
+    .blog-post-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../assets/img/1.jpg') center/cover no-repeat;
+      padding: 100px 0 60px;
+      color: white;
+      text-align: center;
+      pointer-events: none;
+      pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* LOck down for the stubborn <a> */
+
+.stretched-link::after {
+  content: none !important;
+  display: none !important;
+}
+/* stringen hot paper read activation 150k discard 250 */
+/* LOck down for the stubborn <a> */
+    
+    .blog-post-hero .meta {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .blog-post-hero .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .blog-content {
+      padding: 60px 0;
+    }
+    
+    .blog-content p {
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    
+    .blog-content h2, .blog-content h3 {
+      margin: 40px 0 20px;
+      color: #2c3e50;
+    }
+    
+    .blog-content blockquote {
+      border-left: 4px solid #7c3848;
+      padding-left: 20px;
+      margin: 30px 0;
+      font-style: italic;
+      color: #555;
+    }
+    
+    .featured-image {
+      margin: 30px 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .author-info {
+      background-color: #f8f9fa;
+      padding: 30px;
+      border-radius: 8px;
+      margin: 40px 0;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .author-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .related-posts {
+      padding: 60px 0;
+      background-color: #f8f9fa;
+    }
+    
+    .post-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+    
+    .post-tag {
+      background-color: #e9ecef;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .social-share {
+      display: flex;
+      gap: 15px;
+      margin: 30px 0;
+    }
+    
+    .social-share a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #7c3848;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-share a:hover {
+      background-color: #5a2935;
+      transform: translateY(-3px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .author-info {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .blog-post-hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="../index.html" class="logo d-flex align-items-center">
+        <img src="../assets/img/KASSOSA-White.png" alt="">
+        <!-- <i class="bi bi-buildings"></i> -->
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <!-- <li><a href="about.html">About Us</a></li> -->
+          <li><a href="news.html" class="active">Projects</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="alumni.html">Alumni</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Blog Post Hero Section -->
+    <section class="blog-post-hero">
+      <div class="container">
+        <div class="meta">
+          <div class="meta-item">
+            <i class="bi bi-calendar slide-up"></i>
+            <span class="slide-up delay-1">October 15, 2025</span>
+          </div>
+          <!-- <div class="meta-item">
+            <i class="bi bi-person"></i>
+            <span>By Dr. Sarah Johnson</span>
+          </div> -->
+          <div class="meta-item">
+            <i class="bi bi-clock slide-up delay-2"></i>
+            <span class="slide-up delay-3">5 min read</span>
+          </div>
+        </div>
+        <h1 style="color:#ffffff" class="slide-up delay-5">Our Real Estate Breakthrough</h1>
+        <div class="post-tags">
+          <!-- <span class="post-ta">Education.</span> -->
+          <!-- <span class="post-ta">Technology.</span> -->
+          <!-- <span class="post-ta">Innovation.</span> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Content Section -->
+    <section class="blog-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <div class="video-container">
+        <video class="slide-up" autoplay muted loop playsinline>
+          <source src="../assets/img/vid3.mp4" type="video/mp4">
+          <source src="../assets/img/vid3.mp4" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+            
+            <p class="slide-up">In 2023, KASSOSA Investment Partners Club achieved a significant milestone with the acquisition of our first commercial property in the growing suburb of Kasawo. This strategic investment represents the culmination of five years of disciplined saving, careful planning, and unwavering commitment from our members.</p>
+
+<p class="slide-up">The property, a one acre commercial land, was acquired for 50 million Ugandan shillings and has already shown promising returns through rental income from three established businesses. This project demonstrates our club's ability to identify valuable opportunities and transform collective resources into tangible assets that benefit all members.</p>
+
+<h2 class="slide-up">From Vision to Reality: The Journey</h2>
+
+<p class="slide-up">The journey began in 2020 when our founding members recognized the need for a structured investment vehicle that would allow Kasawo Secondary School alumni to pool resources and build wealth together. Through monthly contributions ranging from 100,000 to 500,000 shillings per member, we gradually built our investment capital while conducting thorough market research.</p>
+
+<blockquote class="slide-right">
+  <p>"This project isn't just about bricks and mortar—it's about building a legacy for future generations of Kasawo alumni. It proves what we can achieve when we unite behind a common vision." - Mr. Batasi Herbert, Chair Person of KASSASO</p>
+</blockquote>
+
+<p class="slide-up">After eighteen months of diligent saving, we formed a property selection committee that evaluated over fifteen potential investments before identifying our current property. The location was chosen for its proximity to the newly constructed Kasawo Town Center and its potential for appreciation as infrastructure development continues in the area.</p>
+
+<h3 class="slide-up">Strategic Value and Member Benefits</h3>
+
+<p class="slide-up">Beyond the financial returns, this project serves multiple strategic purposes for our club. It provides a physical asset that anchors our investment portfolio, generates steady rental income that can be reinvested, and demonstrates our credibility to potential partners and financial institutions.</p>
+
+<p class="slide-up">For our members, the project offers both tangible and intangible benefits. Financially, it represents a secure investment with projected annual returns of 12-15%. Perhaps more importantly, it strengthens the bonds between alumni and creates a powerful example of what collaborative economics can achieve within our community.</p>
+            
+            <!-- <div class="social-share">
+              <a href="#"><i class="bi bi-facebook"></i></a>
+              <a href="#"><i class="bi bi-twitter"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+              <a href="#"><i class="bi bi-link-45deg"></i></a>
+            </div> -->
+            
+            <!-- <div class="author-info">
+              <img src="assets/img/person/person-f-8.webp" alt="Author" class="author-image">
+              <div>
+                <h4>Dr. Sarah Johnson</h4>
+                <p>Professor of Educational Technology with over 15 years of experience in digital learning innovations. Dr. Johnson has published numerous papers on pedagogical approaches in the digital age.</p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Posts Section -->
+    <section class="related-posts">
+      <div class="container">
+        <div class="section-title">
+          <h2 class="darker slide-up">Other Projects</h2>
+          <p class="slide-up">Explore more of our projectss</p>
+        </div>
+        
+        <div class="row gy-5">
+          <div class="col-md-4">
+            <div class="post-box">
+              <div class="post-img slide-left"><img src="../assets/img/2.jpg" class="img-fluid" alt=""></div>
+              <div class="meta">
+                <!-- <span class="post-date">Sep 28, 2023</span> -->
+                <!-- <span class="post-author"> / Michael Chen</span> -->
+              </div>
+              <h3 class="post-title darker slide-right">Our Real Estate Breakthrough</h3>
+              <p class="slide-right delay-1">In our fifth year, we proudly launched our first real estate investment — a milestone that reflects discipline, trust, and forward planning. This project is only the beginning of a portfolio that will empower members and inspire future alumni.</p>
+              <a href="page/blog.html" class="readmore stretched-link slide-left delay-2"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="post-box">
+              <div class="post-img slide-left"><img src="../assets/img/2.jpg" class="img-fluid" alt=""></div>
+              <div class="meta">
+                <!-- <span class="post-date">Sep 15, 2023</span> -->
+                <!-- <span class="post-author"> / Lisa Rodriguez</span> -->
+              </div>
+              <h3 class="post-title darker slide-right">Our Real Estate Breakthrough</h3>
+              <p class="slide-right delay-1">In our fifth year, we proudly launched our first real estate investment — a milestone that reflects discipline, trust, and forward planning. This project is only the beginning of a portfolio that will empower members and inspire future alumni.</p>
+              <a href="blog.html" class="readmore stretched-link slide-left delay-2"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="post-box">
+              <div class="post-img slide-left"><img src="../assets/img/2.jpg" class="img-fluid" alt=""></div>
+              <div class="meta">
+                <!-- <span class="post-date">Aug 30, 2023</span> -->
+                <!-- <span class="post-author"> / David Wilson</span> -->
+              </div>
+              <h3 class="post-title darker slide-right">Our Real Estate Breakthrough</h3>
+              <p class="slide-right delay-2">In our fifth year, we proudly launched our first real estate investment — a milestone that reflects discipline, trust, and forward planning. This project is only the beginning of a portfolio that will empower members and inspire future alumni.</p>
+              <a href="pages/blog.html" class="readmore stretched-link slide-left delay-2"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer-16 footer position-relative dark-background">
+
+    <div class="container">
+
+      <div class="footer-main">
+        <div class="row align-items-start">
+
+          <div class="col-lg-5">
+            <div class="brand-section">
+              <a href="../index.html" class="logo d-flex align-items-center mb-4">
+                <span class="sitename">KASSOSA</span>
+              </a>
+              <p class="brand-description">Crafting exceptional digital experiences through thoughtful design and innovative solutions that elevate your brand presence.</p>
+
+              <!-- <div class="contact-info mt-5">
+                <div class="contact-item">
+                  <i class="bi bi-geo-alt"></i>
+                  <span>Location Based</span>
+                </div>
+                <div class="contact-item">
+                  <i class="bi bi-telephone"></i>
+                  <span>+256 770 000 000</span>
+                </div>
+                <div class="contact-item">
+                  <i class="bi bi-envelope"></i>
+                  <span>kassosainvestmentpartnersclub@gmail.com</span>
+                </div>
+              </div> -->
+              
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="footer-nav-wrapper brand-section">
+              <div class="row">
+                
+                <div class="contact-info mt-5">
+                <div class="contact-item">
+                  <i class="bi bi-geo-alt"></i>
+                  <span>Mayangayanga Magonga</span>
+                </div>
+                <div class="contact-item">
+                  <i class="bi bi-telephone"></i>
+                  <span>+256 782 012822</span>
+                </div>
+                <div class="contact-item">
+                  <i class="bi bi-envelope"></i>
+                  <span>kassosainvestmentpartnersclub@gmail.com</span>
+                </div>
+              </div>
+
+                <!-- <div class="col-6 col-lg-3">
+                  <div class="nav-column">
+                    <h6>Studio</h6>
+                    <nav class="footer-nav">
+                      <a href="#">Our Story</a>
+                      <a href="#">Design Process</a>
+                      <a href="#">Portfolio</a>
+                      <a href="#">Case Studies</a>
+                      <a href="#">Awards</a>
+                    </nav>
+                  </div>
+                </div> -->
+
+                <!-- <div class="col-6 col-lg-3">
+                  <div class="nav-column">
+                    <h6>Services</h6>
+                    <nav class="footer-nav">
+                      <a href="#">Brand Identity</a>
+                      <a href="#">Web Design</a>
+                      <a href="#">Mobile Apps</a>
+                      <a href="#">Digital Strategy</a>
+                      <a href="#">Consultation</a>
+                    </nav>
+                  </div>
+                </div> -->
+
+                <!-- <div class="col-6 col-lg-3">
+                  <div class="nav-column">
+                    <h6>Resources</h6>
+                    <nav class="footer-nav">
+                      <a href="#">Design Blog</a>
+                      <a href="#">Style Guide</a>
+                      <a href="#">Free Assets</a>
+                      <a href="#">Tutorials</a>
+                      <a href="#">Inspiration</a>
+                    </nav>
+                  </div>
+                </div> -->
+                <!-- might need this one -->          <!--Ela might need this one-->
+                <!-- <div class="col-6 col-lg-3">
+                  <div class="nav-column">
+                    <h6>Connect</h6>
+                    <nav class="footer-nav">
+                      <a href="#">Start Project</a>
+                      <a href="#">Schedule Call</a>
+                      <a href="#">Join Newsletter</a>
+                      <a href="#">Follow Updates</a>
+                      <a href="#">Partnership</a>
+                    </nav>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- <div class="footer-social">
+        <div class="row align-items-center">
+
+          <div class="col-lg-6">
+            <div class="newsletter-section">
+              <h5>Stay Inspired</h5>
+              <p>Subscribe to receive design insights and creative inspiration delivered monthly.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="social-section">
+              <div class="social-links">
+                <a href="#" aria-label="Dribbble" class="social-link">
+                  <i class="bi bi-dribbble"></i>
+                  <span>Dribbble</span>
+                </a>
+                <a href="#" aria-label="Behance" class="social-link">
+                  <i class="bi bi-behance"></i>
+                  <span>Behance</span>
+                </a>
+                <a href="#" aria-label="Instagram" class="social-link">
+                  <i class="bi bi-instagram"></i>
+                  <span>Instagram</span>
+                </a>
+                <a href="#" aria-label="LinkedIn" class="social-link">
+                  <i class="bi bi-linkedin"></i>
+                  <span>LinkedIn</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div> -->
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="bottom-content">
+          <div class="row align-items-center">
+
+            <div class="col-lg-6">
+              <div class="copyright">
+                <p>© <span class="sitename">KASSASO.</span> All rights reserved.</p>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="legal-links">
+                <!-- <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a> -->
+                <div class="credits">
+                  Designed by <a href="tel:0778280015">Digital Ace</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
