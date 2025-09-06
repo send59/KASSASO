@@ -18,7 +18,7 @@ require '../PHPMailer/src/SMTP.php';
 $name = $_POST['name'] ?? '';
 $email = $_POST['email'] ?? '';
 $phone = $_POST['phone'] ?? '';
-$house = $_POST['subject'] ?? '';
+$reason = $_POST['subject'] ?? '';
 $message = $_POST['message'] ?? '';
 
 // Validate required fields
@@ -61,13 +61,13 @@ try {
     
     // Content
     $mail->isHTML(true);
-    $mail->Subject = "New Contact Form Submission - $house House";
+    $mail->Subject = "New Contact Form Submission - $reason Reason";
     $mail->Body    = "
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> $name</p>
         <p><strong>Email:</strong> $email</p>
         <p><strong>Phone:</strong> $phone</p>
-        <p><strong>House:</strong> $house</p>
+        <p><strong>Reason:</strong> $reason</p>
         <p><strong>Message:</strong><br>".nl2br(htmlspecialchars($message))."</p>
         <p><em>Submitted on: ".date('Y-m-d H:i:s')."</em></p>
     ";
@@ -78,7 +78,7 @@ try {
         Name: $name
         Email: $email
         Phone: $phone
-        House: $house
+        Reason: $reason
         
         Message:
         $message
